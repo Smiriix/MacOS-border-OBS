@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>StreamBorder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            outline: none;
+            transition: unset !important;
+        }
+
+        :root {
+            --border_height: 32px;
+            --btn_size: 16px;
+            --size: 15px;
+            --title: '';
+        }
+
+        body,
+        html {
+            position: relative;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .border {
+            position: relative;
+            height: 100vh;
+            border-left: 2px solid #111;
+            border-right: 2px solid #111;
+            border-bottom: 2px solid #111;
+            box-sizing: border-box;
+        }
+
+        .border__top {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: var(--border_height);
+            background: #111;
+            left: -2px;
+            right: -2px;
+            top: 0;
+            /* border-radius: 10px 10px 0 0; */
+            padding: 0px 20px;
+            box-sizing: border-box;
+            gap: 20px;
+        }
+
+        .border__top:before {
+            content: '';
+        }
+
+        .border__top:after {
+            position: relative;
+            content: var(--title);
+            order: 1;
+            color: #fff;
+            font-weight: 700;
+            line-height: 1em;
+            letter-spacing: .3em;
+            margin-right: auto;
+            font-size: 16px;
+        }
+
+        .border__btns {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            order: 2;
+        }
+
+        .border__btns span {
+            display: block;
+            background: #fff;
+            width: var(--btn_size);
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            background: var(--color);
+            border: 2px solid #0003;
+            box-sizing: border-box;
+            filter: drop-shadow(0 0 6px var(--color)) drop-shadow(0 0 2px var(--color));
+        }
+
+        .border__bottom {
+            position: absolute;
+            top: var(--border_height);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* background: #0005; */
+        }
+
+        .border__bottom span {
+            display: block;
+            position: absolute;
+            width: var(--size);
+            aspect-ratio: 1 / 1;
+            background: #111;
+            mask-composite: exclude !important;
+        }
+
+        .border__bottom span:nth-child(1) {
+            top: -1px;
+            left: -1px;
+            mask: radial-gradient(circle at bottom right, #000 calc(var(--size) - 1px), #0000 var(--size)), linear-gradient(to right, #000, #000);
+        }
+
+        .border__bottom span:nth-child(2) {
+            top: -1px;
+            right: -1px;
+            mask: radial-gradient(circle at bottom left, #000 calc(var(--size) - 1px), #0000 var(--size)), linear-gradient(to right, #000, #000);
+        }
+
+        .border__bottom span:nth-child(3) {
+            bottom: -1px;
+            right: -1px;
+            mask: radial-gradient(circle at top left, #000 calc(var(--size) - 1px), #0000 var(--size)), linear-gradient(to right, #000, #000);
+        }
+
+        .border__bottom span:nth-child(4) {
+            bottom: -1px;
+            left: -1px;
+            mask: radial-gradient(circle at top right, #000 calc(var(--size) - 1px), #0000 var(--size)), linear-gradient(to right, #000, #000);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="border">
+        <div class="border__top">
+            <div class="border__btns">
+                <span style="--color: #30ca46;"></span>
+                <span style="--color: #fabc3f;"></span>
+                <span style="--color: #ff5e58;"></span>
+            </div>
+        </div>
+        <div class="border__bottom">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</body>
+
+</html>
