@@ -60,21 +60,27 @@ float PxToUv(int pixels){
     return pixels / uv_size.y;
 }
 
-float4 drawCircle(float2 uv, float2 center, float4 color){
+float4 drawCircle(float2 uv, float varX, float4 color){
     float aspect = uv_size.x / uv_size.y;
     float2 correct_uv = uv;
     float size = sizeBtn;
     int padd = paddingBtn;
+    float posX = 0;
+    float2 center = float2(1 - PxToUv(sizeBtn) / 4, PxToUv(heightBorder) / 2);
+    float multiply = varX;
     
     if(size > heightBorder){
         size = heightBorder;
     }
 
     correct_uv.x = (uv.x - 0.5) * aspect + 0.5;
+
+    center.x = (center.x - 0.5) * aspect + 0.5 - PxToUv(padd) - (PxToUv(sizeBtn) + PxToUv(sizeBtn) * 0.5) * multiply;
     if(flipBtn == true){
-        padd = paddingBtn * -1;
+        multiply = 2 - varX;
+        center.x = 0 + PxToUv(sizeBtn) / 4;
+        center.x = (center.x - 0.5) * aspect + 0.5 - PxToUv(padd) * -1 + (PxToUv(sizeBtn) + PxToUv(sizeBtn) * 0.5) * multiply;
     }
-    center.x = (center.x - 0.5) * aspect + 0.5 - PxToUv(padd);
 
     float dist = distance(correct_uv, center);
     if(dist <= PxToUv(size) / 2){
@@ -91,29 +97,19 @@ float4 mainImage(VertData v_in) : TARGET
 
     if(showBtn == true){
         // Нарисовать кнопку 1
-        float circlePos3 = 1 - PxToUv(sizeBtn) / 4 - PxToUv(sizeBtn) * 1.6;
-        if(flipBtn == true){
-            circlePos3 = 0 + PxToUv(sizeBtn) / 4;
-        }
-        float4 circle3 = drawCircle(uv, float2(circlePos3, PxToUv(heightBorder) / 2), colorBtn1);
+        float4 circle3 = drawCircle(uv, float(2), colorBtn1);
         if(circle3.a > 0){
             return circle3;
         }
+
         // Нарисовать кнопку 2
-        float circlePos2 = 1 - PxToUv(sizeBtn) / 4 - PxToUv(sizeBtn) * .8;
-        if(flipBtn == true){
-            circlePos2 = 0 + PxToUv(sizeBtn) / 4 + PxToUv(sizeBtn) * .8;
-        }
-        float4 circle2 = drawCircle(uv, float2(circlePos2, PxToUv(heightBorder) / 2), colorBtn2);
+        float4 circle2 = drawCircle(uv, float(1), colorBtn2);
         if(circle2.a > 0){
             return circle2;
         }
+
         // Нарисовать кнопку 3
-        float circlePos1 = 1 - PxToUv(sizeBtn) / 4;
-        if(flipBtn == true){
-            circlePos1 =  0 + PxToUv(sizeBtn) / 4 + PxToUv(sizeBtn) * .8 + PxToUv(sizeBtn) * .8;
-        }
-        float4 circle1 = drawCircle(uv, float2(circlePos1, PxToUv(heightBorder) / 2), colorBtn3);
+        float4 circle1 = drawCircle(uv, float(0), colorBtn3);
         if(circle1.a > 0){
             return circle1;
         }
