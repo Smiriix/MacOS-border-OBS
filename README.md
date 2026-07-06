@@ -65,5 +65,4 @@
 ## 👤 [Автор рамок]:
 - Никнейм: Smiriix
 - <a href="http://twitch.tv/smiriix">Twitch</a>
-- <a href="http://t.me/smiriix_public">Telegram (Канал)</a>
-- <a href="http://t.me/smiriix">Telegram (ЛС)</a>
+- <a href="http://t.me/smiriix">Telegram</a>
